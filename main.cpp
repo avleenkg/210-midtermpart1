@@ -87,47 +87,47 @@ public:
         delete temp; //delete temporary node
     }
 
-    void delete_pos(int pos) {
-        if (!head) {
+    void delete_pos(int pos) { //deleting by position, passing in position to delete
+        if (!head) { //if head not valid output list is empty
             cout << "List is empty." << endl;
             return;
         }
     
-        if (pos == 1) {
-            pop_front();
+        if (pos == 1) { //if the node to delete is the head node
+            pop_front(); //call pop_front function
             return;
         }
     
-        Node* temp = head;
+        Node* temp = head; //create temp node pointing to head
     
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
-                cout << "Position doesn't exist." << endl;
+        for (int i = 1; i < pos; i++){ //traverse to position to delete
+            if (!temp) { //if temp no longer valid
+                cout << "Position doesn't exist." << endl; //position was less than or greater than range of list
                 return;
             }
             else
-                temp = temp->next;
+                temp = temp->next; //else continue moving down the list
         }
         if (!temp) {
             cout << "Position doesn't exist." << endl;
             return;
         }
     
-        if (!temp->next) {
-            pop_back();
+        if (!temp->next) { //if node to delete is tail
+            pop_back(); //call pop_back function
             return;
         }
     
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
+        Node* tempPrev = temp->prev; //create new pointer to node which will point to temp->prev node
+        tempPrev->next = temp->next; //temp->prev->next aka tempPrev-> points to node after temp instead of temp itself
+        temp->next->prev = tempPrev; //temp->next>prev points to tempPrev rearranging the pointers around temp allowing us to get rid of it while keeping the list whole
+        delete temp; //delete temp node
     }
 
-    void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
+    void push_back(int v) { //push_back adds node to end of list and sets value passed in 
+        Node* newNode = new Node(v); //creating dynamically allocated node setting value passed in and creating pointer to it
+        if (!tail) //if list is empty
+            head = tail = newNode; //newnode is head and tail since its the only node
         else {
             tail->next = newNode;
             newNode->prev = tail;
