@@ -128,89 +128,94 @@ public:
         Node* newNode = new Node(v); //creating dynamically allocated node setting value passed in and creating pointer to it
         if (!tail) //if list is empty
             head = tail = newNode; //newnode is head and tail since its the only node
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
+        else { //if list not empty
+            tail->next = newNode; //make tail's next pointer point to newnode
+            newNode->prev = tail; //and newnode->prev to the tail
+            tail = newNode; //make newnode the new tail
         }
     }
     
-    void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
-            head = tail = newNode;
-        else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+    void push_front(int v) { //adds node to front of list
+        Node* newNode = new Node(v); //creates dynamically allocated node ^ same as above
+        if (!head) //if list empty
+            head = tail = newNode; //head is the tail which is the newnode bc its the only node
+        else { //if not empty
+            newNode->next = head; //newnode->next points to head
+            head->prev = newNode; //head->prev is newnode
+            head = newNode; //make newnode the new head
         }
     }
     
-    void pop_front() {
+    void pop_front() { //deletes head node
 
-        if (!head) {
+        if (!head) { //if list empty
             cout << "List is empty." << endl;
             return;
         }
 
-        Node * temp = head;
+        Node * temp = head; //create temp node pointing to head
 
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
+        if (head->next) { //if there is more than just the head node
+            head = head->next; //head->next node is now the head
+            head->prev = nullptr; //set head->prev to nullptr
+        }
+        else //if there is only one node
+            head = tail = nullptr; //head is tail which is nullptr, list is empty
+        delete temp; //delete
+    }
+
+    void pop_back() { //deletes node from back
+        if (!tail) { //list empty
+            cout << "List is empty." << endl;
+            return;
+        }
+        Node * temp = tail; //create temp node pointer pointing to tail
+
+        if (tail->prev) { //if more than one node
+            tail = tail->prev; //set tail to point to node before tail
+            tail->next = nullptr; //set tail->next to nullptr
         }
         else
-            head = tail = nullptr;
+            head = tail = nullptr; //list is empty
         delete temp;
     }
 
-    void pop_back() {
-        if (!tail) {
+    ~DoublyLinkedList() { //destructor
+        while (head) { //while list is not empty
+            Node* temp = head; //temp points to head
+            head = head->next; //head traverses down the list
+            delete temp; //delete temp
+        }
+    }
+    void print() { //print
+        Node* current = head; //create current pointing to head
+        if (!current) { //list empty
             cout << "List is empty." << endl;
             return;
         }
-        Node * temp = tail;
-
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
-        }
-        else
-            head = tail = nullptr;
-        delete temp;
-    }
-
-    ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
-        }
-    }
-    void print() {
-        Node* current = head;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
-        }
-        while (current) {
-            cout << current->data << " ";
-            current = current->next;
+        while (current) { //while current is pointing to valid data
+            cout << current->data << " "; //output the data
+            current = current->next; //keep current moving forward
         }
         cout << endl;
     }
 
-    void print_reverse() {
-        Node* current = tail;
+    void print_reverse() { //print in reverse
+        Node* current = tail; //current points to tail instead of head
         if (!current) { 
             cout << "List is empty." << endl;
             return;
         }
-        while (current) {
-            cout << current->data << " ";
-            current = current->prev;
+        while (current) { //while there is valid data
+            cout << current->data << " "; //print the data
+            current = current->prev; //move backwards through list
         }
         cout << endl;
+    }
+
+    void every_other_element() { //need to make sure index is not even so %2 does not = 0
+        
+
     }
 };
 
