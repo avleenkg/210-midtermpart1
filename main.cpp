@@ -214,13 +214,37 @@ public:
     }
 
     void every_other_element() { //need to make sure index is not even so %2 does not = 0
-        
+        Node* current = head;
+        int i = 1;
 
+        while (current) {
+            if (i % 2 != 0) 
+                cout << current->data << " ";
+            current = current->next;
+            i++;
+        }
+        
+        cout << endl;
     }
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+    DoublyLinkedList list;
+    list.push_back(1);
+    list.push_back(24);
+    list.push_back(67);
+    list.push_back(3);
+    list.push_back(99);
+    list.push_back(45);
+    list.push_back(10);
+
+    cout << "Printing list:\n";
+    list.print();
+
+    cout << endl;
+
+    cout << "Printing every other node:\n";
+    list.every_other_element();
 
     
     return 0;
