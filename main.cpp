@@ -38,26 +38,27 @@ public:
             return;
         }
 
-        Node* newNode = new Node(value); 
-        if (!head) {
-            head = tail = newNode;
+        Node* newNode = new Node(value); //new Node(Value) creates dynamically allocated Node and sets int data as the value passed in, newNode is the pointer to that node
+        if (!head) { //if the list is empty
+            head = tail = newNode; //the new node is now the tail and the head since it is the only node
             return;
         }
 
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
+        Node* temp = head; //create temporary pointer temp which points to the same node as the head pointer (head node)
+        for (int i = 0; i < position && temp; ++i) //traverse to the position passed in while making sure temp is valid (not = nullptr)
+            temp = temp->next; //then temp now points to the node after it
+                               //temp->next is pointing to the next pointer
 
-        if (!temp) {
+        if (!temp) { //if temp is not valid (=nullptr), then it could not locate the position passed in
             cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
+            delete newNode; //delete dynamically allocated node
             return;
         }
 
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
+        newNode->next = temp->next; //newNode->next pointer is now pointing to temp->next pointer
+        newNode->prev = temp; //newNode->prev is pointint to temp
+        if (temp->next) //if temp->next exists meaning if temp is not the tail node
+            temp->next->prev = newNode; //then temp->next->prev points to newNode, inserting the newNode where
         else
             tail = newNode;
         temp->next = newNode;
