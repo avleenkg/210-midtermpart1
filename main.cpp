@@ -11,30 +11,34 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList {
 private:
-    struct Node {
-        int data;
-        Node* prev;
-        Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
-            prev = p;
-            next = n;
+    struct Node { //creating node data structure which will hold
+        int data; //integer data
+        Node* prev; //pointer pointing to the prev node
+        Node* next; //pointer pointing to next node
+        //constructor used to intialize 
+        Node(int val, Node* p = nullptr, Node* n = nullptr) { //takes in 3 parameters, sets p and n pointers to nullptr
+            data = val; //int val was passed in, and int data is set to that value
+            prev = p; //prev set to nullptr as a default
+            next = n; //next set to nullptr
         }
     };
 
-    Node* head;
-    Node* tail;
+    //creating pointers head and tail which will point to objects of Node type
+    Node* head; //generally used to point at the first node
+    Node* tail; //generally used to point at last node
 
 public:
+    //default constructor which sets pointers head and tail declared above to nullptr
     DoublyLinkedList() { head = nullptr; tail = nullptr; }
 
-    void insert_after(int value, int position) {
-        if (position < 0) {
+    //function takes in and integer value and position
+    void insert_after(int value, int position) { //position tells us where to add/insert a node, value tells us what int data to inset
+        if (position < 0) { //if position is < 0, it is not valid so exit
             cout << "Position must be >= 0." << endl;
             return;
         }
 
-        Node* newNode = new Node(value);
+        Node* newNode = new Node(value); 
         if (!head) {
             head = tail = newNode;
             return;
