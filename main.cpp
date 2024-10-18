@@ -58,33 +58,33 @@ public:
         newNode->next = temp->next; //newNode->next pointer is now pointing to temp->next pointer
         newNode->prev = temp; //newNode->prev is pointint to temp
         if (temp->next) //if temp->next exists meaning if temp is not the tail node
-            temp->next->prev = newNode; //then temp->next->prev points to newNode, inserting the newNode where
+            temp->next->prev = newNode; //then temp->next->prev points to newNode
         else
-            tail = newNode;
-        temp->next = newNode;
+            tail = newNode; //newNode is the tail node if temp->next is not valid
+        temp->next = newNode; //temp->next pointer points to newNode
     }
 
-    void delete_val(int value) {
-        if (!head) return;
+    void delete_val(int value) { //deleting by value passed in
+        if (!head) return; //if no head, then list empty and nothing to delete
 
-        Node* temp = head;
+        Node* temp = head; //create temp pointer pointing to head
         
-        while (temp && temp->data != value)
-            temp = temp->next;
+        while (temp && temp->data != value) //while temp is valid and we dont reach the node that has the data value we want to delete
+            temp = temp->next; //traverse temp to next node
 
-        if (!temp) return; 
+        if (!temp) return; //if you go past range of the list, value was not found, exit
 
-        if (temp->prev)
-            temp->prev->next = temp->next;
-        else
-            head = temp->next; 
+        if (temp->prev) //if temp is not pointing to head node
+            temp->prev->next = temp->next; //temp->prev->next pointer is not going to point to temp, but to temp->next instead
+        else //if it is the pointing to head
+            head = temp->next; //new head will be node temp->next is pointing to
 
-        if (temp->next)
-            temp->next->prev = temp->prev;
-        else
-            tail = temp->prev; 
+        if (temp->next) //if not the tail node
+            temp->next->prev = temp->prev; //temp->next->prev will point to node before temp instead of temp itself
+        else //if it is tail
+            tail = temp->prev; //change tail to be node before temp 
 
-        delete temp;
+        delete temp; //delete temporary node
     }
 
     void delete_pos(int pos) {
